@@ -1,0 +1,56 @@
+package com.goldendays.config;
+
+import java.util.List;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.json.AbstractJackson2HttpMessageConverter;
+import org.springframework.web.servlet.ViewResolver;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.view.InternalResourceViewResolver;
+import org.springframework.web.servlet.view.JstlView;
+
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+@Configuration
+@EnableWebMvc
+@ComponentScan({ "com.goldendays.controller", "com.goldendays.restcontroller" })
+public class DispatcherConfig extends WebMvcConfigurerAdapter {
+
+	@Bean
+	public ViewResolver viewResolver() {
+		InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
+		viewResolver.setViewClass(JstlView.class);
+		viewResolver.setPrefix("/pages/");
+		viewResolver.setSuffix(".jsp");
+		return viewResolver;
+	}
+
+	@Override
+	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+		registry.addResourceHandler("/resources/assets/**").addResourceLocations("/resources/");
+		// .setCachePeriod(31556926);
+		registry.addResourceHandler("/resources/css/**").addResourceLocations("/resources/");
+		// .setCachePeriod(31556926);
+		registry.addResourceHandler("/resources/js/**").addResourceLocations("/resources/");
+		// .setCachePeriod(31556926);
+	}
+
+	@Override
+    public void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
+        for (HttpMessageConverter<?> converter : converters) {
+            if (converter instanceof AbstractJackson2HttpMessageConverter) {
+                AbstractJackson2HttpMessageConverter c = (AbstractJackson2HttpMessageConverter) converter;
+                ObjectMapper objectMapper = c.getObjectMapper();
+                objectMapper.setSerializationInclusion(Include.NON_NULL);
+            }
+        }
+        super.extendMessageConverters(converters);
+    }
+
+}
