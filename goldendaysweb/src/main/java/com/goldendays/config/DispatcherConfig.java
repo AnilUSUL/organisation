@@ -2,11 +2,14 @@ package com.goldendays.config;
 
 import java.util.List;
 
+import javax.sql.DataSource;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.AbstractJackson2HttpMessageConverter;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -19,7 +22,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan({ "com.goldendays.controller", "com.goldendays.restcontroller" })
+@ComponentScan({ "com.goldendays.controller", "com.goldendays.restcontroller","com.goldendays.implementation" })
 public class DispatcherConfig extends WebMvcConfigurerAdapter {
 
 	@Bean
@@ -42,15 +45,26 @@ public class DispatcherConfig extends WebMvcConfigurerAdapter {
 	}
 
 	@Override
-    public void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
-        for (HttpMessageConverter<?> converter : converters) {
-            if (converter instanceof AbstractJackson2HttpMessageConverter) {
-                AbstractJackson2HttpMessageConverter c = (AbstractJackson2HttpMessageConverter) converter;
-                ObjectMapper objectMapper = c.getObjectMapper();
-                objectMapper.setSerializationInclusion(Include.NON_NULL);
-            }
-        }
-        super.extendMessageConverters(converters);
-    }
+	public void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
+		for (HttpMessageConverter<?> converter : converters) {
+			if (converter instanceof AbstractJackson2HttpMessageConverter) {
+				AbstractJackson2HttpMessageConverter c = (AbstractJackson2HttpMessageConverter) converter;
+				ObjectMapper objectMapper = c.getObjectMapper();
+				objectMapper.setSerializationInclusion(Include.NON_NULL);
+			}
+		}
+		super.extendMessageConverters(converters);
+	}
+
+	@Bean
+	public DataSource getDataSource() {
+		DriverManagerDataSource dataSource = new DriverManagerDataSource();
+		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
+		dataSource.setUrl("jdbc:mysql://localhost:3306/contactdb");
+		dataSource.setUsername("root");
+		dataSource.setPassword("P@ssw0rd");
+
+		return dataSource;
+	}
 
 }

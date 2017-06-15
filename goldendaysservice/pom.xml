@@ -4,8 +4,8 @@
 	<groupId>com.goldendays</groupId>
 	<artifactId>goldendaysservice</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>goldendays</name>
-	<description>goldendays</description>
+	<name>goldendaysservice</name>
+	<description>goldendaysservice</description>
 
 	<parent>
 		<groupId>com.goldendays</groupId>

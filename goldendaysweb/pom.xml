@@ -15,6 +15,23 @@
 	</parent>
 
 	<dependencies>
+		<dependency>
+			<groupId>com.goldendays</groupId>
+			<artifactId>goldendaysservice</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.42</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.springframework/spring-jdbc -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+			<version>4.3.8.RELEASE</version>
+		</dependency>
 		<!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -51,7 +68,6 @@
 		</dependency>
 	</dependencies>
 	<build>
-		<finalName>HelloWorld</finalName>
 		<pluginManagement>
 			<plugins>
 				<plugin>
