@@ -4,8 +4,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+import javax.jws.WebService;
+
 import com.goldendays.webservice.contract.IDummyWebService;
 import com.goldendays.webservice.implementation.temporarybean.Person;
+
 
 public class DummyWebService implements IDummyWebService {
 	private static Map<Integer, Person> persons = new HashMap<Integer, Person>();
@@ -38,6 +41,5 @@ public class DummyWebService implements IDummyWebService {
 		}
 		return p;
 	}
-	
 
 }

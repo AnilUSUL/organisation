@@ -22,8 +22,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan({ "com.goldendays.controller", "com.goldendays.restcontroller","com.goldendays.implementation" })
-public class DispatcherConfig extends WebMvcConfigurerAdapter {
+@ComponentScan({ "com.goldendays.controller", "com.goldendays.restcontroller", "com.goldendays.implementation" })
+public class DispatcherServletConfig extends WebMvcConfigurerAdapter {
+	// Here is the equivalent DispatcherServlet registration logic,
+	// WebApplicationInitializer-style:
 
 	@Bean
 	public ViewResolver viewResolver() {

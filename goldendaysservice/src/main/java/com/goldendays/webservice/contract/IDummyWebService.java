@@ -12,5 +12,4 @@ public interface IDummyWebService {
 
 	public Person[] getAllPersons();
 
-	
 }
