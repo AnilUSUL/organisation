@@ -13,17 +13,31 @@ import org.springframework.web.filter.DelegatingFilterProxy;
 import org.springframework.web.servlet.DispatcherServlet;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
+/*
+ * Application initilizer class
+ */
 @Configuration
 @EnableWebMvc
 public class WebApplicationInitilzr implements WebApplicationInitializer {
 
-	public void onStartup(ServletContext container) throws ServletException {
-		createRootContext(container);
-		createDispatcherServletContext(container);
-		createWebServiceServletContext(container);
-		addFilter(container);
+	/*
+	 * Application starts from here(non-Javadoc)
+	 * 
+	 * @see
+	 * org.springframework.web.WebApplicationInitializer#onStartup(javax.servlet
+	 * .ServletContext)
+	 */
+	public void onStartup(ServletContext servletContext) throws ServletException {
+		createRootContext(servletContext);
+		createDispatcherServletContext(servletContext);
+		createWebServiceServletContext(servletContext);
+		addFilter(servletContext);
+
 	}
 
+	/*
+	 * Application context
+	 */
 	private void createRootContext(ServletContext container) {
 		// Create the 'root' Spring application context
 		AnnotationConfigWebApplicationContext rootContext = new AnnotationConfigWebApplicationContext();
@@ -34,6 +48,9 @@ public class WebApplicationInitilzr implements WebApplicationInitializer {
 		container.addListener(new ContextLoaderListener(rootContext));
 	}
 
+	/*
+	 * Creating adispatcher servlet, context, mapping, loadorder.
+	 */
 	private void createDispatcherServletContext(ServletContext container) {
 		// Create the dispatcher servlet's Spring application context
 		AnnotationConfigWebApplicationContext dispatcherContext = new AnnotationConfigWebApplicationContext();
@@ -47,6 +64,9 @@ public class WebApplicationInitilzr implements WebApplicationInitializer {
 		dispatcher.setLoadOnStartup(1);
 	}
 
+	/*
+	 * Apache - CXF WebService, CXFServlet, mapping, loadorder
+	 */
 	private void createWebServiceServletContext(ServletContext container) {
 		// Create the dispatcher servlet's Spring application context
 		ServletRegistration.Dynamic dispatcher = container.addServlet("CXFServlet", new CXFServlet());
@@ -54,10 +74,14 @@ public class WebApplicationInitilzr implements WebApplicationInitializer {
 		dispatcher.setLoadOnStartup(2);
 	}
 
-	private void addFilter(ServletContext container) {
+	/*
+	 * filter configuration
+	 */
+	void addFilter(ServletContext container) {
 		String filterName = "WhatEverYouWantToNameYourFilter";
 		String filterBeanName = "mdcInsertingServletFilter";
 		container.addFilter(filterName, new DelegatingFilterProxy(filterBeanName)).addMappingForUrlPatterns(null, false,
 				"/");
 	}
+
 }

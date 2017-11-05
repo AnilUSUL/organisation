@@ -1,7 +1,9 @@
 package com.goldendays.webservice.contract;
 
-import com.goldendays.webservice.implementation.temporarybean.Person;
+import javax.jws.WebService;
 
+import com.goldendays.webservice.implementation.temporarybean.Person;
+@WebService
 public interface IDummyWebService {
 
 	public boolean addPerson(Person p);
