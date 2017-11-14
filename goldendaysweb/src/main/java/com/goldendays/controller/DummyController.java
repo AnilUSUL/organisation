@@ -21,7 +21,8 @@ public class DummyController {
 	// model.addObject("msg", dummyService.getDatasource());
 	// return model;
 	// }
-
+	
+	//page return
 	@RequestMapping(value = "/greet")
 	public ModelAndView greet(String name) {
 		ModelAndView model = new ModelAndView("HelloWorldPage");
@@ -29,12 +30,13 @@ public class DummyController {
 		return model;
 	}
 
+	//db_manuplation
 	@RequestMapping(value = "/service")
 	public ModelAndView service(String name) {
 		Person person = new Person();
 		
-		person.setUser("ALI");
-		person.setMail("ali@gmail.com");
+		person.setUser("ASLI");
+		person.setMail("asli@gmail.com");
 		person.setPass("asdafasf");
 		
 		dummyService.addPerson(person);

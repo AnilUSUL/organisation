@@ -2,18 +2,12 @@ package com.goldendays.config;
 
 import java.util.List;
 
-import javax.sql.DataSource;
-
-import org.apache.commons.dbcp2.BasicDataSource;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.core.env.Environment;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.AbstractJackson2HttpMessageConverter;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -31,12 +25,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  */
 @Configuration
 @EnableWebMvc
-@ComponentScan({ "com.goldendays.controller", "com.goldendays.restcontroller" ,"com.goldendays.dao.implementation", "com.goldendays.implementation"})
+@ComponentScan({ "com.goldendays.controller", "com.goldendays.restcontroller" , "com.goldendays.implementation"})
 @PropertySource(value = { "classpath:application.properties" })
-public class DispatcherServletConfig extends WebMvcConfigurerAdapter {
+public class WebAppConfig extends WebMvcConfigurerAdapter {
 	
 	/* 
 	 * This is created to get jsp files in project directory
+	 * for web servlet specific
 	 */
 	@Bean 
 	public ViewResolver viewResolver() {
@@ -50,6 +45,7 @@ public class DispatcherServletConfig extends WebMvcConfigurerAdapter {
 	/* 
 	 * Handling project static files by mapped path(non-Javadoc)
 	 * @see org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter#addResourceHandlers(org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry)
+	 *for web servlet specific
 	 */
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
@@ -64,6 +60,7 @@ public class DispatcherServletConfig extends WebMvcConfigurerAdapter {
 	/*
 	 * reason of json based rest controller can be working, this method implemented(non-Javadoc)
 	 * @see org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter#extendMessageConverters(java.util.List)
+	 * for web servlet specific
 	 */
 	@Override
 	public void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
@@ -76,26 +73,30 @@ public class DispatcherServletConfig extends WebMvcConfigurerAdapter {
 		}
 		super.extendMessageConverters(converters);
 	}
-	
-	@Autowired
-    private Environment env;
-
-    @Bean
-    public DataSource dataSource() {
-        BasicDataSource dataSource = new BasicDataSource();
-        dataSource.setDriverClassName(env.getProperty("jdbc.mysql.driverClassName"));
-        dataSource.setUrl(env.getProperty("jdbc.mysql.url"));
-        dataSource.setUsername(env.getProperty("jdbc.mysql.username"));
-        dataSource.setPassword(env.getProperty("jdbc.mysql.password"));
-        // dataSource.setDefaultAutoCommit(false);
-        return dataSource;
-    }
-    
-    @Bean
-    public JdbcTemplate jdbcTemplate(DataSource dataSource) {
-        JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
-        jdbcTemplate.setResultsMapCaseInsensitive(true);
-        return jdbcTemplate;
-    }
-
+	/*
+	 * this part not servlet specific
+	 * */
+//		@Autowired
+//	    private Environment env;
+//	
+//	    @Bean
+//	    public DataSource dataSource() {
+//	        BasicDataSource dataSource = new BasicDataSource();
+//	        dataSource.setDriverClassName(env.getProperty("jdbc.mysql.driverClassName"));
+//	        dataSource.setUrl(env.getProperty("jdbc.mysql.url"));
+//	        dataSource.setUsername(env.getProperty("jdbc.mysql.username"));
+//	        dataSource.setPassword(env.getProperty("jdbc.mysql.password"));
+//	        // dataSource.setDefaultAutoCommit(false);
+//	        return dataSource;
+//	    }
+//	    
+//	    @Bean
+//	    public JdbcTemplate jdbcTemplate(DataSource dataSource) {
+//	        JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+//	        jdbcTemplate.setResultsMapCaseInsensitive(true);
+//	        return jdbcTemplate;
+//	    }
+    /* * 
+	 * this part not servlet specific
+	 * */
 }
