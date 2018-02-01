@@ -1,54 +1,46 @@
 package com.goldendays.contract.modelobjects;
 
+import java.math.BigDecimal;
+
 public class Person {
 
-	private Integer id;
-	private String user;
-	private String mail;
-	private String pass;
-
-	public Person(Integer id, String user, String mail, Integer pass) {
-
+	private BigDecimal id;
+	private String name;
+	private String email;
+	private String password;
+	private String securityToken;
+	
+	public String getSecurityToken() {
+		return securityToken;
 	}
-
-	public Person() {
-
+	public void setSecurityToken(String securityToken) {
+		this.securityToken = securityToken;
 	}
-
-	public Integer getId() {
+	public BigDecimal getId() {
 		return id;
 	}
-
-	public String getUser() {
-		return user;
+	public void setId(BigDecimal id) {
+		this.id = id;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
-	public void setUser(String user) {
-		this.user = user;
-	}
-
-	public String getMail() {
-		return mail;
-	}
-
-	public void setMail(String mail) {
-		this.mail = mail;
-	}
-
-	public void setPass(String pass) {
-		this.pass = pass;
-	}
-
-	public String getPass() {
-		return pass;
-	}
-
-	@Override
-	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("Person Id:- " + getId() + " First Name:- " + getUser() + " Last Name:- " + getMail() + " Age:- "
-				+ getPass());
-		return builder.toString();
-	}
+	
 
 }

@@ -1,5 +1,7 @@
 package com.goldendays.dao.contract;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.goldendays.contract.modelobjects.Person;
@@ -7,13 +9,18 @@ import com.goldendays.contract.modelobjects.Person;
 
 public interface PersonDao {
  
-    public void addPerson(Person person);
+    public int addPerson(Person person);
+    
+    public Person findByEmail(String email);
  
-    public void editPerson(Person person, int personId);
+    public int editPerson(Person person, BigDecimal personId);
  
-    public void deletePerson(int personId);
+    public int deletePerson(BigDecimal personId);
  
-    public Person find(int personId);
+    public Person find(BigDecimal personId);
  
     public List < Person > findAll();
+
+	public ArrayList<Person> findByEmailAndPass(Person person);
+
 }

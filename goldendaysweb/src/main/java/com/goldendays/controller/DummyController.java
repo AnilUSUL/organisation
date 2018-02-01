@@ -11,7 +11,7 @@ import com.goldendays.contract.modelobjects.Person;
 import com.goldendays.implementation.DummyService;
 
 @Controller
-public class DummyController {
+public class DummyController extends BaseController{
 	@Autowired
 	DummyService dummyService;
 
@@ -35,9 +35,9 @@ public class DummyController {
 	public ModelAndView service(String name) {
 		Person person = new Person();
 		
-		person.setUser("ASLI");
-		person.setMail("asli@gmail.com");
-		person.setPass("asdafasf");
+		person.setName("ASLI");
+		person.setEmail("asli@gmail.com");
+		person.setPassword("asdafasf");
 		
 		dummyService.addPerson(person);
 		List<Person> listPerson = dummyService.findAll();

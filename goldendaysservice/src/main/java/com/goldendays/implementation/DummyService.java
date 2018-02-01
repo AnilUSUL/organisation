@@ -1,5 +1,6 @@
 package com.goldendays.implementation;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,15 +21,15 @@ public class DummyService implements IDummyService {
  
     }
  
-    public void editPerson(Person person, int personId) {
+    public void editPerson(Person person, BigDecimal personId) {
         personDao.editPerson(person, personId);
     }
  
-    public void deletePerson(int personId) {
+    public void deletePerson(BigDecimal personId) {
         personDao.deletePerson(personId);
     }
  
-    public Person find(int personId) {
+    public Person find(BigDecimal personId) {
         return personDao.find(personId);
     }
  

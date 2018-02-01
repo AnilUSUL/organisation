@@ -7,10 +7,10 @@ import javax.servlet.ServletRegistration;
 import org.apache.cxf.transport.servlet.CXFServlet;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.util.Assert;
-import org.springframework.web.context.ContextLoaderListener;
-import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
+
+import com.goldendays.filter.JwtFilter;
 
 /*
  * Application initilizer class
@@ -29,6 +29,7 @@ public class ServletInitializer extends AbstractAnnotationConfigDispatcherServle
 		// createDispatcherServletContext(servletContext);
 		super.onStartup(servletContext);
 		createWebServiceServletContext(servletContext);
+		serverCotrollerFilter(servletContext);
 		// addFilter(servletContext);
 
 	}
@@ -91,7 +92,15 @@ public class ServletInitializer extends AbstractAnnotationConfigDispatcherServle
 		// dispatcher.addMapping("/ws/*");
 		// dispatcher.setLoadOnStartup(2);
 	}
+	
+	public void serverCotrollerFilter(ServletContext container) {
+	       
+	       container.addFilter("My filter", JwtFilter.class).addMappingForUrlPatterns(null, false, new String[] { "/web/*","/rest/*" });
+	       //or container.addFilter("My filter", MyFilter.class).addMappingForUrlPatterns(null, false, "/*");
+	   }
 
+	
+	
 	/*
 	 * filter configuration void addFilter(ServletContext container) { String
 	 * filterName = "WhatEverYouWantToNameYourFilter"; String filterBeanName =
@@ -113,5 +122,10 @@ public class ServletInitializer extends AbstractAnnotationConfigDispatcherServle
 	protected String[] getServletMappings() {
 		return new String[] { "/" };
 	}
+	
+//	@Override
+//	protected Filter[] getServletFilters() {
+//		return new Filter[]{new JwtFilter()};
+//	}
 
 }

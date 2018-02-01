@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.goldendays.dto.Dto;
 
 @RestController
-public class DummyRestController {
+public class DummyRestController extends BaseRestController{
 
 	@RequestMapping(value = "/restGreetMap")
 	public Map<String, String> greetMap(String name) {
